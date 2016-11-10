@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   startProjectHeader: {
     id: 'boilerplate.containers.BotPage.start_project.header',
-    defaultMessage: 'Start your next react project in seconds',
+    defaultMessage: 'Botly',
   },
   startProjectMessage: {
     id: 'boilerplate.containers.BotPage.start_project.message',
