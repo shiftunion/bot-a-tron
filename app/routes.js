@@ -19,7 +19,7 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -40,7 +40,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/bot',
+      path: '/',
       name: 'bot',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
