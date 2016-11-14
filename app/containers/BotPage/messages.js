@@ -14,13 +14,13 @@ export default defineMessages({
     id: 'boilerplate.containers.BotPage.start_project.message',
     defaultMessage: 'A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices',
   },
-  trymeHeader: {
-    id: 'boilerplate.containers.BotPage.tryme.header',
-    defaultMessage: 'Try me!',
+  chatHeader: {
+    id: 'boilerplate.containers.BotPage.chat.header',
+    defaultMessage: 'Chat will go here',
   },
-  trymeMessage: {
-    id: 'boilerplate.containers.BotPage.tryme.message',
-    defaultMessage: 'Show Github repositories by',
+  newChatMessage: {
+    id: 'boilerplate.containers.BotPage.newChatMessage.message',
+    defaultMessage: 'Enter you chat message here',
   },
   trymeAtPrefix: {
     id: 'boilerplate.containers.BotPage.tryme.atPrefix',

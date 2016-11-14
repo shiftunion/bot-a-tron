@@ -9,9 +9,6 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
-import AtPrefix from './AtPrefix';
-import CenteredSection from './CenteredSection';
 import Form from './Form';
 import H2 from 'components/H2';
 import Input from './Input';
@@ -21,6 +18,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import RepoListItem from 'containers/RepoListItem';
 import Section from './Section';
 import messages from './messages';
+import ChatMessage from 'components/ChatMessage';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { selectUsername } from './selectors';
@@ -43,14 +41,14 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
     if (this.props.loading) {
       mainContent = (<List component={LoadingIndicator} />);
 
-    // Show an error if there is one
+      // Show an error if there is one
     } else if (this.props.error !== false) {
       const ErrorComponent = () => (
         <ListItem item={'Something went wrong, please try again!'} />
       );
       mainContent = (<List component={ErrorComponent} />);
 
-    // If we're not loading, don't have an error and there are repos, show the repos
+      // If we're not loading, don't have an error and there are repos, show the repos
     } else if (this.props.repos !== false) {
       mainContent = (<List items={this.props.repos} component={RepoListItem} />);
     }
@@ -64,24 +62,17 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
           ]}
         />
         <div>
-          <CenteredSection>
-            <H2>
-              <FormattedMessage {...messages.startProjectHeader} />
-            </H2>
-            <p>
-              <FormattedMessage {...messages.startProjectMessage} />
-            </p>
-          </CenteredSection>
           <Section>
             <H2>
-              <FormattedMessage {...messages.trymeHeader} />
+              <FormattedMessage {...messages.chatHeader} />
             </H2>
+            <div>
+              <ChatMessage></ChatMessage>
+            </div>
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
-                <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
+                <FormattedMessage {...messages.newChatMessage} />
+                <br />
                 <Input
                   id="username"
                   type="text"

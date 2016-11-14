@@ -1,8 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
-import A from 'components/A';
-import LocaleToggle from 'containers/LocaleToggle';
 import Wrapper from './Wrapper';
 import messages from './messages';
 
@@ -10,16 +7,10 @@ function ChatMessage() {
   return (
     <Wrapper>
       <section>
-        <FormattedMessage {...messages.licenseMessage} />
-      </section>
-      <section>
-        <LocaleToggle />
-      </section>
-      <section>
         <FormattedMessage
-          {...messages.authorMessage}
+          {...messages.chatMessage}
           values={{
-            author: <A href="https://twitter.com/mxstbr">Max Stoiber</A>,
+            message: 'message-moo',
           }}
         />
       </section>
@@ -28,5 +19,3 @@ function ChatMessage() {
 }
 
 export default ChatMessage;
-
-// todo: Sort out chat message
