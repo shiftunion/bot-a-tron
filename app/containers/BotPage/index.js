@@ -20,7 +20,7 @@ import Section from './Section';
 import messages from './messages';
 import ChatMessage from 'components/ChatMessage';
 import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
+import { changeUsername, addChatMessage } from './actions';
 import { selectUsername } from './selectors';
 import { selectRepos, selectLoading, selectError } from 'containers/App/selectors';
 
@@ -69,9 +69,21 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
             <div>
               <ChatMessage></ChatMessage>
             </div>
+            <Form onSubmit={this.props.onSubmitChatMessage}>
+              <label htmlFor="chatMessage">
+                <FormattedMessage {...messages.newChatMessage} />
+                <br />
+                <Input
+                  id="chatMessage"
+                  type="text"
+                  placeholder="chat message here"
+                  value={this.props.chatMessage}
+                />
+              </label>
+            </Form>
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
-                <FormattedMessage {...messages.newChatMessage} />
+                <FormattedMessage {...messages.repoMessage} />
                 <br />
                 <Input
                   id="username"
@@ -103,6 +115,8 @@ BotPage.propTypes = {
   onSubmitForm: React.PropTypes.func,
   username: React.PropTypes.string,
   onChangeUsername: React.PropTypes.func,
+  chatMessage: React.PropTypes.string,
+  onSubmitChatMessage: React.PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -112,6 +126,7 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
+    onSubmitChatMessage: (evt) => dispatch(addChatMessage(evt.target.value)),
   };
 }
 

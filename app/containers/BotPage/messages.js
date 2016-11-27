@@ -22,6 +22,10 @@ export default defineMessages({
     id: 'boilerplate.containers.BotPage.newChatMessage.message',
     defaultMessage: 'Enter you chat message here',
   },
+  repoMessage: {
+    id: 'boilerplate.containers.BotPage.repoMessage.message',
+    defaultMessage: 'Search for a repo',
+  },
   trymeAtPrefix: {
     id: 'boilerplate.containers.BotPage.tryme.atPrefix',
     defaultMessage: '@',

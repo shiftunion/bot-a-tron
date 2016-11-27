@@ -10,3 +10,4 @@
  */
 
 export const CHANGE_USERNAME = 'boilerplate/Bot/CHANGE_USERNAME';
+export const ADD_CHAT_MESSAGE = 'boilerplate/Bot/ADD_CHAT_MESSAGE';
