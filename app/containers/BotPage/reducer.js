@@ -10,13 +10,14 @@
  *   return state.set('yourStateVariable', true);
  */
 
-import { CHANGE_USERNAME, ADD_CHAT_MESSAGE } from './constants';
+import { CHANGE_USERNAME, CHAT_MESSAGE_ADD, CHAT_MESSAGE_SUCCESS, CHAT_MESSAGE_ERROR } from './constants';
 import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
   username: '',
   chatHistory: '',
+  loading: false,
 });
 
 function botReducer(state = initialState, action) {
@@ -25,8 +26,16 @@ function botReducer(state = initialState, action) {
     case CHANGE_USERNAME:
       // Delete prefixed '@' from the github username
       return state.set('username', action.name.replace(/@/gi, ''));
-    case ADD_CHAT_MESSAGE:
-      return state.set('chatHistory', [...history, action.message]);
+    case CHAT_MESSAGE_ADD:
+      return state
+        .set('chatHistory', [...history, action.message])
+        .set('loading', true);
+    case CHAT_MESSAGE_SUCCESS:
+      return state
+        .set('chatHistory', [...history, action.botResponse])
+        .set('loading', false);
+    case CHAT_MESSAGE_ERROR:
+      return state.set('chatHistory', [...history, action.error]);
     default:
       return state;
   }

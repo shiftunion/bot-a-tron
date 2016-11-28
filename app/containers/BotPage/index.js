@@ -20,7 +20,7 @@ import Section from './Section';
 import messages from './messages';
 import ChatMessage from 'components/ChatMessage';
 import { loadRepos } from '../App/actions';
-import { changeUsername, addChatMessage } from './actions';
+import { changeUsername, chatMessageAdd } from './actions';
 import { selectUsername } from './selectors';
 import { selectRepos, selectLoading, selectError } from 'containers/App/selectors';
 
@@ -58,7 +58,7 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
         <Helmet
           title="Bot Page"
           meta={[
-            { name: 'description', content: 'A React.js Boilerplate application botpage' },
+            { name: 'description', content: 'A React.js Boilerplate application bot page' },
           ]}
         />
         <div>
@@ -88,7 +88,7 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
                 <Input
                   id="username"
                   type="text"
-                  placeholder="mxstbr"
+                  placeholder="shiftunion"
                   value={this.props.username}
                   onChange={this.props.onChangeUsername}
                 />
@@ -126,9 +126,15 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
-    onSubmitChatMessage: (evt) => dispatch(addChatMessage(evt.target.value)),
+    onSubmitChatMessage: (evt) => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault(); // prevents the default page refresh for a form submit
+      const textInput = evt.target.chatMessage;
+      dispatch(chatMessageAdd(textInput.value));
+      textInput.value = '';
+    },
   };
 }
+
 
 const mapStateToProps = createStructuredSelector({
   repos: selectRepos(),

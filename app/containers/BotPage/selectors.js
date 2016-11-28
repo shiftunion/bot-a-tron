@@ -11,7 +11,13 @@ const selectUsername = () => createSelector(
   (botState) => botState.get('username')
 );
 
+const selectChatHistory = () => createSelector(
+  selectBot(),
+  (botState) => botState.get('chatHistory')
+);
+
 export {
   selectBot,
   selectUsername,
+  selectChatHistory,
 };

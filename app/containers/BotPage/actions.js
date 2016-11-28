@@ -15,7 +15,10 @@
  *    }
  */
 
-import { CHANGE_USERNAME, ADD_CHAT_MESSAGE } from './constants';
+import { CHANGE_USERNAME,
+  CHAT_MESSAGE_ADD,
+  CHAT_MESSAGE_ERROR,
+  CHAT_MESSAGE_SUCCESS } from './constants';
 
 /**
  * Changes the input field of the form
@@ -31,9 +34,23 @@ export function changeUsername(name) {
   };
 }
 
-export function addChatMessage(message) {
+export function chatMessageAdd() {
   return {
-    type: ADD_CHAT_MESSAGE,
-    message,
+    type: CHAT_MESSAGE_ADD,
+  };
+}
+
+
+export function chatMessageCompleted(botResponse) {
+  return {
+    type: CHAT_MESSAGE_SUCCESS,
+    botResponse,
+  };
+}
+
+export function chatMessageError(error) {
+  return {
+    type: CHAT_MESSAGE_ERROR,
+    error,
   };
 }

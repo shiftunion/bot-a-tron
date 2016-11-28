@@ -6,8 +6,9 @@ import { takeLatest } from 'redux-saga';
 import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOAD_REPOS } from 'containers/App/constants';
+import { CHAT_MESSAGE_ADD } from './constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
-
+import { chatMessageCompleted, chatMessageError } from './actions';
 import request from 'utils/request';
 import { selectUsername } from 'containers/BotPage/selectors';
 
@@ -48,7 +49,40 @@ export function* githubData() {
   yield cancel(watcher);
 }
 
+/**
+ * Watches for CHAT_MESSAGE_ADD actions and calls getRepos when one comes in.
+ * By using `takeLatest` only the result of the latest API call is applied.
+ */
+export function* addMessageWatcher() {
+  yield fork(takeLatest, CHAT_MESSAGE_ADD, addChatMessage);
+}
+
+/**
+ * Adds a bot message to the the chat windows
+ * todo: Add a bot response as well
+ */
+export function* addChatMessage() {
+  // Select chat from store
+
+  const botResponse = 'i hear ya fella';
+  try {
+    yield put(chatMessageCompleted(botResponse));
+  } catch (err) {
+    yield put(chatMessageError(err));
+  }
+}
+
+export function* chatDataProcessing() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(addMessageWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 // Bootstrap sagas
 export default [
   githubData,
+  chatDataProcessing,
 ];
