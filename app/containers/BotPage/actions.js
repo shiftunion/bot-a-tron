@@ -34,10 +34,11 @@ export function changeUsername(name) {
   };
 }
 
-export function chatMessageAdd(message) {
+export function chatMessageAdd(message, username) {
   return {
     type: CHAT_MESSAGE_ADD,
     message,
+    username,
   };
 }
 

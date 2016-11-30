@@ -15,7 +15,7 @@ import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
-  username: '',
+  username: 'CurrentUser',
   chatHistory: [],
   loading: false,
 });
@@ -28,11 +28,11 @@ function botReducer(state = initialState, action) {
       return state.set('username', action.name.replace(/@/gi, ''));
     case CHAT_MESSAGE_ADD:
       return state
-        .set('chatHistory', [...history, action.message])
+        .set('chatHistory', [...history, { message: action.message, username: action.username }])
         .set('loading', true);
     case CHAT_MESSAGE_SUCCESS:
       return state
-        .set('chatHistory', [...history, action.botResponse])
+        .set('chatHistory', [...history, { message: action.botResponse, username: 'bot' }])
         .set('loading', false);
     case CHAT_MESSAGE_ERROR:
       return state.set('chatHistory', [...history, action.error]);

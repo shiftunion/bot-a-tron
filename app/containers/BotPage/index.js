@@ -80,6 +80,11 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
                   placeholder="chat message here"
                   value={this.props.chatMessage}
                 />
+                <Input
+                  id="username"
+                  type="hidden"
+                  value={this.props.username}
+                />
               </label>
             </Form>
             <Form onSubmit={this.props.onSubmitForm}>
@@ -130,12 +135,11 @@ export function mapDispatchToProps(dispatch) {
     onSubmitChatMessage: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault(); // prevents the default page refresh for a form submit
       const textInput = evt.target.chatMessage;
-      dispatch(chatMessageAdd(textInput.value));
+      dispatch(chatMessageAdd(textInput.value, evt.target.username.value));
       textInput.value = '';
     },
   };
 }
-
 
 const mapStateToProps = createStructuredSelector({
   repos: selectRepos(),
