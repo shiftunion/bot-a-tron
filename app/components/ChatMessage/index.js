@@ -1,21 +1,18 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import Wrapper from './Wrapper';
-import messages from './messages';
 
-function ChatMessage() {
+function ChatMessage(props) {
   return (
     <Wrapper>
       <section>
-        <FormattedMessage
-          {...messages.chatMessage}
-          values={{
-            message: 'message-moo',
-          }}
-        />
+        {props.item}
       </section>
     </Wrapper>
   );
 }
+
+ChatMessage.propTypes = {
+  item: React.PropTypes.string,
+};
 
 export default ChatMessage;

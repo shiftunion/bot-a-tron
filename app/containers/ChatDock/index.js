@@ -5,54 +5,43 @@
  */
 
 import React from 'react';
+import List from 'components/List';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-import { FormattedNumber } from 'react-intl';
-
-import IssueIcon from './IssueIcon';
-import IssueLink from './IssueLink';
-import ListItem from 'components/ListItem';
-import RepoLink from './RepoLink';
+import { createStructuredSelector } from 'reselect';
+import ChatMessage from 'components/ChatMessage';
 import Wrapper from './Wrapper';
 import { selectCurrentUser } from 'containers/App/selectors';
+import { selectChatHistory } from 'containers/BotPage/selectors';
 
 export class ChatDock extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const item = this.props.item;
-    let nameprefix = '';
-
-    // If the repository is owned by a different person than we got the data for
-    // it's a fork and we should show the name of the owner
-    if (item.owner.login !== this.props.currentUser) {
-      nameprefix = `${item.owner.login}/`;
-    }
+    const mainContent = (<List items={this.props.chatMessages} component={ChatMessage} />);
 
     // Put together the content of the repository
     const content = (
       <Wrapper>
-        <RepoLink href={item.html_url} target="_blank">
-          {nameprefix + item.name}
-        </RepoLink>
-        <IssueLink href={`${item.html_url}/issues`} target="_blank">
-          <IssueIcon />
-          <FormattedNumber value={item.open_issues_count} />
-        </IssueLink>
+        {mainContent}
       </Wrapper>
     );
 
     // Render the content into a list item
     return (
-      <ListItem key={`repo-list-item-${item.full_name}`} item={content} />
+      content
     );
   }
 }
 
 ChatDock.propTypes = {
-  item: React.PropTypes.object,
-  currentUser: React.PropTypes.string,
+  chatMessages: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object,
+  ]),
+  // currentUser: React.PropTypes.string
 };
 
-export default connect(createSelector(
-  selectCurrentUser(),
-  (currentUser) => ({ currentUser })
-))(ChatDock);
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser(),
+  chatMessages: selectChatHistory(),
+});
+
+export default connect(mapStateToProps)(ChatDock);

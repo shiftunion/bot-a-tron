@@ -18,11 +18,11 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import RepoListItem from 'containers/RepoListItem';
 import Section from './Section';
 import messages from './messages';
-import ChatMessage from 'components/ChatMessage';
+import ChatDock from 'containers/ChatDock';
 import { loadRepos } from '../App/actions';
 import { changeUsername, chatMessageAdd } from './actions';
-import { selectUsername } from './selectors';
 import { selectRepos, selectLoading, selectError } from 'containers/App/selectors';
+import { selectChatHistory, selectUsername } from './selectors';
 
 export class BotPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
@@ -67,8 +67,9 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
               <FormattedMessage {...messages.chatHeader} />
             </H2>
             <div>
-              <ChatMessage></ChatMessage>
+              <ChatDock></ChatDock>
             </div>
+            <br /><br /><br />
             <Form onSubmit={this.props.onSubmitChatMessage}>
               <label htmlFor="chatMessage">
                 <FormattedMessage {...messages.newChatMessage} />
@@ -141,6 +142,7 @@ const mapStateToProps = createStructuredSelector({
   username: selectUsername(),
   loading: selectLoading(),
   error: selectError(),
+  chatMessages: selectChatHistory(),
 });
 
 // Wrap the component to inject dispatch and state into it
