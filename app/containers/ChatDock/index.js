@@ -1,21 +1,22 @@
-/**
- * ChatDock
- *
- * Lists the name and the issue count of a repository
- */
-
 import React from 'react';
-import List from 'components/List';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import ChatMessage from 'components/ChatMessage';
 import Wrapper from './Wrapper';
-import { selectCurrentUser } from 'containers/App/selectors';
-import { selectChatHistory } from 'containers/BotPage/selectors';
+import { selectChatHistory, selectUsername } from 'containers/BotPage/selectors';
 
 export class ChatDock extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const mainContent = (<List items={this.props.chatMessages} component={ChatMessage} />);
+    let mainContent = (<div></div>);
+
+    if (this.props.chatMessages) {
+      mainContent = this.props.chatMessages.map((item, index) => (
+        <ChatMessage chatMessage={item} currentUser={this.props.currentUser} key={`item-${index}`} />
+      ));
+    } else {
+      // Otherwise render a single component
+      mainContent = (<ChatMessage />);
+    }
 
     // Put together the content of the repository
     const content = (
@@ -36,11 +37,11 @@ ChatDock.propTypes = {
     React.PropTypes.array,
     React.PropTypes.object,
   ]),
-  // currentUser: React.PropTypes.string
+  currentUser: React.PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser(),
+  currentUser: selectUsername(),
   chatMessages: selectChatHistory(),
 });
 
