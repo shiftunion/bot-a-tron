@@ -19,20 +19,10 @@ import RepoListItem from 'containers/RepoListItem';
 import Section from './Section';
 import messages from './messages';
 import ChatDock from 'containers/ChatDock';
-import { loadRepos } from '../App/actions';
-import { changeUsername, chatMessageAdd } from './actions';
-import { selectRepos, selectLoading, selectError } from 'containers/App/selectors';
+import { chatMessageAdd } from './actions';
 import { selectChatHistory, selectUsername } from './selectors';
 
 export class BotPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  /**
-   * when initial state username is not null, submit the form to load repo list
-   */
-  componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-  }
 
   render() {
     let mainContent = null;
@@ -67,7 +57,7 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
               <FormattedMessage {...messages.chatHeader} />
             </H2>
             <div>
-              <ChatDock></ChatDock>
+              <ChatDock />
             </div>
             <br /><br /><br />
             <Form onSubmit={this.props.onSubmitChatMessage}>
@@ -84,19 +74,6 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
                   id="username"
                   type="hidden"
                   value={this.props.username}
-                />
-              </label>
-            </Form>
-            <Form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-                <FormattedMessage {...messages.repoMessage} />
-                <br />
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="shiftunion"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
                 />
               </label>
             </Form>
@@ -118,20 +95,13 @@ BotPage.propTypes = {
     React.PropTypes.array,
     React.PropTypes.bool,
   ]),
-  onSubmitForm: React.PropTypes.func,
   username: React.PropTypes.string,
-  onChangeUsername: React.PropTypes.func,
   chatMessage: React.PropTypes.string,
   onSubmitChatMessage: React.PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: (evt) => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
     onSubmitChatMessage: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault(); // prevents the default page refresh for a form submit
       const textInput = evt.target.chatMessage;
@@ -142,10 +112,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  repos: selectRepos(),
   username: selectUsername(),
-  loading: selectLoading(),
-  error: selectError(),
   chatMessages: selectChatHistory(),
 });
 
