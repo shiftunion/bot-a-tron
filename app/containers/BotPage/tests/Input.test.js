@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
 
-import Input from '../Input';
+import Input from '../../../components/ChatDock/Input';
 
 describe('<Input />', () => {
   it('should render an <input> tag', () => {

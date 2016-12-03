@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
 
-import Form from '../Form';
+import Form from '../../../components/ChatDock/Form';
 
 describe('<Form />', () => {
   it('should render an <form> tag', () => {
