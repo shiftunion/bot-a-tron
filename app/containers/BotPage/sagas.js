@@ -26,9 +26,9 @@ export function* getBotApiDetail() {
   try {
     // Call our request helper (see 'utils/request')
     const cards = yield call(request, requestURL);
-    yield put(botApiResponded(cards));
+    yield put(botApiResponded(cards)); // todo: call a modified version  of
   } catch (err) {
-    yield put(repoLoadingError(err)); // todo: make this a botpage specific action
+    yield put(repoLoadingError(err)); // todo: make this a botpage specific action addChatMessage
   }
 }
 
@@ -67,6 +67,9 @@ export function* addChatMessage() {
   }
 }
 
+/**
+ * STEP 1
+ */
 export function* chatDataProcessing() {
   // Fork watcher so we can continue execution
   const watcher = yield fork(addMessageWatcher);
@@ -79,5 +82,5 @@ export function* chatDataProcessing() {
 // Bootstrap sagas
 export default [
   botApiData,
-  chatDataProcessing,
+  chatDataProcessing, //todo: Consider... do need two or these or just one?
 ];

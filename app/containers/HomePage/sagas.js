@@ -40,7 +40,7 @@ export function* getReposWatcher() {
  * Root saga manages watcher lifecycle
  */
 export function* githubData() {
-  // Fork watcher so we can continue execution
+  // Fork [and setup] a watcher so we can continue execution
   const watcher = yield fork(getReposWatcher);
 
   // Suspend execution until location changes
