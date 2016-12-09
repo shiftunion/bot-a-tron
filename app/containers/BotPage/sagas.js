@@ -21,7 +21,9 @@ export function* getBotApiWatcher() {
 export function* getBotApiDetail() {
   // Select username from store
   // const username = yield select(selectUsername());
-  const requestURL = 'http://localhost:3333/cards/';
+
+  // Note this gets proxyified in dev! ref frontendMiddleware.js
+  const requestURL = '/api/cards';
 
   try {
     // Call our request helper (see 'utils/request')
