@@ -14,11 +14,7 @@
  *        return { type: YOUR_ACTION_CONSTANT, var: var }
  *    }
  */
-
-import { CHANGE_USERNAME,
-  CHAT_MESSAGE_ADD,
-  CHAT_MESSAGE_ERROR,
-  CHAT_MESSAGE_SUCCESS } from './constants';
+import * as constant from './constants';
 
 /**
  * Changes the input field of the form
@@ -29,14 +25,14 @@ import { CHANGE_USERNAME,
  */
 export function changeUsername(name) {
   return {
-    type: CHANGE_USERNAME,
+    type: constant.CHANGE_USERNAME,
     name,
   };
 }
 
 export function chatMessageAdd(message, username) {
   return {
-    type: CHAT_MESSAGE_ADD,
+    type: constant.CHAT_MESSAGE_ADD,
     message,
     username,
   };
@@ -44,14 +40,21 @@ export function chatMessageAdd(message, username) {
 
 export function chatMessageCompleted(botResponse) {
   return {
-    type: CHAT_MESSAGE_SUCCESS,
+    type: constant.CHAT_MESSAGE_SUCCESS,
     botResponse,
   };
 }
 
 export function chatMessageError(error) {
   return {
-    type: CHAT_MESSAGE_ERROR,
+    type: constant.CHAT_MESSAGE_ERROR,
     error,
+  };
+}
+
+export function botApiResponded(response) {
+  return {
+    type: constant.BOT_API_RESPONDED,
+    response,
   };
 }

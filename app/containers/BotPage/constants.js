@@ -14,3 +14,4 @@ export const CHANGE_USERNAME = 'boilerplate/Bot/CHANGE_USERNAME';
 export const CHAT_MESSAGE_ADD = 'boilerplate/Bot/CHAT_MESSAGE_ADD';
 export const CHAT_MESSAGE_SUCCESS = 'boilerplate/Bot/CHAT_MESSAGE_SUCCESS';
 export const CHAT_MESSAGE_ERROR = 'boilerplate/Bot/CHAT_MESSAGE_ERROR';
+export const BOT_API_RESPONDED = 'boilerplate/Bot/BOT_API_RESPONDED';

@@ -42,8 +42,6 @@ export class BotPage extends React.PureComponent { // eslint-disable-line react/
 }
 
 BotPage.propTypes = {
-  // loading: React.PropTypes.bool,
-  // chatMessage: React.PropTypes.string,
   onSubmitChatMessage: React.PropTypes.func,
   chatMessages: React.PropTypes.oneOfType([
     React.PropTypes.array,
