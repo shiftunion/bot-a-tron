@@ -18,12 +18,12 @@ export function* getBotApiWatcher() {
 /**
  * Github repos request/response handler
  */
-export function* getBotApiDetail() {
+export function* getBotApiDetail(action) {
   // Select username from store
   // const username = yield select(selectUsername());
 
   // Note this gets proxyified in dev! ref frontendMiddleware.js
-  const requestURL = '/api/cards';
+  const requestURL = `/api/cards/?msg=${action.message}`;
 
   try {
     // Call our request helper (see 'utils/request')
@@ -59,8 +59,6 @@ export function* addMessageWatcher() {
  * Adds a bot message to the the chat windows
  */
 export function* addChatMessage() {
-  // Select chat from store
-
   const botResponse = 'i hear ya fella';
   try {
     yield put(chatMessageCompleted(botResponse));
