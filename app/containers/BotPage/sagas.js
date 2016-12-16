@@ -23,7 +23,7 @@ export function* getBotApiDetail(action) {
   // const username = yield select(selectUsername());
 
   // Note this gets proxyified in dev! ref frontendMiddleware.js
-  const requestURL = `/api/cards/?msg=${action.message}`;
+  const requestURL = `/api/bot/${action.message}`;
 
   try {
     // Call our request helper (see 'utils/request')
